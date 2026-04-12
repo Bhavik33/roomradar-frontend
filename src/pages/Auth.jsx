@@ -27,18 +27,24 @@ const Auth = () => {
     setLoading(true);
     try {
       if (isLogin) {
-        await login(formData.email, formData.password);
-        toast.success('Welcome back to RoomRadar!');
-        navigate('/housing');
+        const res = await login(formData.email, formData.password);
+        if (res.success) {
+          toast.success('Welcome back to RoomRadar!');
+          navigate('/housing');
+        }
       } else {
         if (step === 1) {
-          await register(formData.name, formData.email, formData.password);
-          toast.success('Secure OTP sent to your email');
-          setStep(2);
+          const res = await register(formData.name, formData.email, formData.password);
+          if (res.success) {
+            toast.success('Secure OTP sent to your email');
+            setStep(2);
+          }
         } else {
-          await verifyOtp(formData.email, formData.otp);
-          toast.success('Account verified successfully!');
-          navigate('/housing');
+          const res = await verifyOtp(formData.email, formData.otp);
+          if (res.success) {
+            toast.success('Account verified successfully!');
+            navigate('/housing');
+          }
         }
       }
     } catch (error) {
