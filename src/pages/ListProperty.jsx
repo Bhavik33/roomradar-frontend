@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Plus, Camera, MapPin, IndianRupee, Home, Wifi, Shield, Car, 
-  Coffee, ArrowLeft, ArrowRight, Check, Loader2, Info
+  Coffee, ArrowLeft, ArrowRight, Check, Loader2, Info, X
 } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
@@ -100,6 +100,11 @@ const ListProperty = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const removeImage = (index) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+    toast.success('Image removed');
   };
 
   const toggleAmenity = (label) => {
@@ -420,8 +425,14 @@ const ListProperty = () => {
                 <label className="block text-sm font-bold text-slate-700 mb-4 uppercase tracking-wider">Upload Photos</label>
                 <div className="grid grid-cols-4 gap-4">
                   {images.map((img, i) => (
-                    <div key={i} className="aspect-square rounded-2xl overflow-hidden border-2 border-slate-100 shadow-sm">
+                    <div key={i} className="aspect-square rounded-2xl overflow-hidden border-2 border-slate-100 shadow-sm relative group">
                       <img src={img} alt="preview" className="w-full h-full object-cover" />
+                      <button 
+                        onClick={() => removeImage(i)}
+                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
                     </div>
                   ))}
                   <label className="aspect-square rounded-2xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors">
