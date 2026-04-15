@@ -82,21 +82,21 @@ const ListProperty = () => {
 
     setLoading(true);
     try {
-      const formData = new FormData();
-      files.forEach(file => formData.append('images', file));
-
-      const { data } = await axios.post(`${BASE_URL}/api/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+      const base64Promises = files.map(file => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
       });
 
-      // Backend returns paths like /uploads/filename.jpg
-      // We prepend BASE_URL to make them visible in the frontend gallery
-      const fullUrls = data.urls.map(url => `${BASE_URL}${url}`);
-      setImages(prev => [...prev, ...fullUrls]);
-      toast.success(`${files.length} images uploaded successfully`);
+      const base64Images = await Promise.all(base64Promises);
+      setImages(prev => [...prev, ...base64Images]);
+      toast.success(`${files.length} images added locally`);
     } catch (error) {
-      console.error('Upload Error:', error);
-      toast.error('Failed to upload images');
+      console.error('Base64 Conversion Error:', error);
+      toast.error('Failed to process images');
     } finally {
       setLoading(false);
     }
