@@ -97,17 +97,17 @@ const Roommates = () => {
   }
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+    <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6 md:gap-8">
         <div>
-          <div className="flex items-center gap-2 text-secondary font-black uppercase tracking-widest text-xs mb-3">
+          <div className="flex items-center gap-2 text-secondary font-black uppercase tracking-widest text-[10px] md:text-xs mb-2 md:mb-3">
             <Users className="w-4 h-4" />
             Vibrant Community
           </div>
-          <h1 className="text-6xl font-black text-slate-900 leading-none mb-4 tracking-tighter">Find Partners.</h1>
-          <p className="text-slate-500 text-lg font-medium italic">Meet {roommates.length} students looking for a shared journey.</p>
+          <h1 className="text-4xl md:text-6xl font-black text-slate-900 leading-none mb-4 tracking-tighter">Find Partners.</h1>
+          <p className="text-slate-500 text-base md:text-lg font-medium italic">Meet {roommates.length} students looking for a shared journey.</p>
         </div>
-        <Link to="/list-roommate" className="px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black tracking-tight hover:bg-black transition-all hover:scale-105 shadow-2xl flex items-center gap-3">
+        <Link to="/list-roommate" className="w-full md:w-auto px-10 py-5 bg-slate-900 text-white rounded-[2rem] font-black tracking-tight hover:bg-black transition-all shadow-2xl flex items-center justify-center gap-3">
           Join the community
           <Sparkles className="w-5 h-5" />
         </Link>
@@ -117,10 +117,10 @@ const Roommates = () => {
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="mb-12 p-8 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-[2.5rem] border border-secondary/20 flex flex-col md:flex-row items-center justify-between gap-6"
+          className="mb-12 p-6 md:p-8 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-[2.5rem] border border-secondary/20 flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-secondary shadow-sm">
+          <div className="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+            <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-secondary shadow-sm shrink-0">
               <Smile className="w-6 h-6" />
             </div>
             <div>
@@ -128,7 +128,7 @@ const Roommates = () => {
               <p className="text-slate-500 font-medium">Set your lifestyle preferences to find the perfect roommate for you.</p>
             </div>
           </div>
-          <Link to="/preferences" className="btn-gradient !from-secondary !to-secondary-dark !px-8 text-sm">
+          <Link to="/preferences" className="w-full md:w-auto btn-gradient !from-secondary !to-secondary-dark !px-8 text-sm text-center">
             Set Preferences
           </Link>
         </motion.div>

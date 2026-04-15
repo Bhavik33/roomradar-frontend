@@ -70,17 +70,17 @@ const ListRoommate = () => {
   };
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto">
+    <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-4xl mx-auto">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-[3rem] p-12 card-shadow border border-slate-50"
+        className="bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 card-shadow border border-slate-50"
       >
-        <div className="flex items-center gap-6 mb-10">
-          <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary">
-            <User className="w-8 h-8" />
+        <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-10">
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary">
+            <User className="w-6 h-6 md:w-8 md:h-8" />
           </div>
-          <h1 className="text-4xl font-bold text-slate-900">Roommate Profile</h1>
+          <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">Roommate Profile</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">

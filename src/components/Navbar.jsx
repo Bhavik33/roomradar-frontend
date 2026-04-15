@@ -118,28 +118,65 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-6 right-6 mt-4 glass rounded-[2.5rem] p-8 shadow-2xl border border-white/50"
-          >
-            <div className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-xl font-black text-slate-900 hover:text-primary transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-              {!user && (
-                <Link to="/login" className="btn-gradient text-center">Sign In</Link>
-              )}
-            </div>
-          </motion.div>
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="md:hidden fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[-1]"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              className="md:hidden absolute top-full left-6 right-6 mt-4 glass rounded-[2.5rem] p-8 shadow-2xl border border-white/50 z-50 overflow-hidden"
+            >
+              <div className="flex flex-col gap-6">
+                {navLinks.map((link) => (
+                  <Link 
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-2xl font-black text-slate-800 hover:text-primary transition-colors flex items-center justify-between group"
+                  >
+                    {link.name}
+                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Plus className="w-4 h-4" />
+                    </div>
+                  </Link>
+                ))}
+                
+                <hr className="border-slate-100" />
+                
+                {!user ? (
+                  <Link 
+                    to="/login" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="btn-gradient text-center py-4 text-lg font-black"
+                  >
+                    Sign In
+                  </Link>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl">
+                      <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center font-bold">
+                        {user.name.charAt(0)}
+                      </div>
+                      <span className="font-black text-slate-900">{user.name}</span>
+                    </div>
+                    <button 
+                      onClick={() => { logout(); setIsMobileMenuOpen(false); }}
+                      className="w-full py-4 rounded-2xl bg-red-50 text-red-500 font-black text-center"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>

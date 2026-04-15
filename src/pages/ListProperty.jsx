@@ -179,17 +179,17 @@ const ListProperty = () => {
   };
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
-      <div className="flex items-center justify-between mb-12">
-        <h1 className="text-4xl font-bold text-slate-900">List Your Property</h1>
+    <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6 max-w-5xl mx-auto">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 md:mb-12 gap-6">
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">List Your Property</h1>
         <div className="flex gap-2">
           {[1, 2, 3].map(i => (
-            <div key={i} className={`h-2 w-12 rounded-full transition-all ${step >= i ? 'bg-primary' : 'bg-slate-200'}`} />
+            <div key={i} className={`h-2 w-10 md:w-12 rounded-full transition-all ${step >= i ? 'bg-primary' : 'bg-slate-200'}`} />
           ))}
         </div>
       </div>
       
-      <div className="bg-white rounded-[3rem] p-12 card-shadow border border-slate-50">
+      <div className="bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-12 card-shadow border border-slate-50">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div 
