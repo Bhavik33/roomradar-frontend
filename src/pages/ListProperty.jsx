@@ -78,9 +78,9 @@ const ListProperty = () => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    const mockImageUrls = files.map(() => `https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&auto=format&fit=crop`);
-    setImages(prev => [...prev, ...mockImageUrls]);
-    toast.success(`${files.length} images added (simulated)`);
+    const newImageUrls = files.map(file => URL.createObjectURL(file));
+    setImages(prev => [...prev, ...newImageUrls]);
+    toast.success(`${files.length} images added`);
   };
 
   const toggleAmenity = (label) => {
