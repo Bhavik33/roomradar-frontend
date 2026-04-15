@@ -76,11 +76,30 @@ const ListProperty = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
-    const newImageUrls = files.map(file => URL.createObjectURL(file));
-    setImages(prev => [...prev, ...newImageUrls]);
-    toast.success(`${files.length} images added`);
+    if (files.length === 0) return;
+
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      files.forEach(file => formData.append('images', file));
+
+      const { data } = await axios.post(`${BASE_URL}/api/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+
+      // Backend returns paths like /uploads/filename.jpg
+      // We prepend BASE_URL to make them visible in the frontend gallery
+      const fullUrls = data.urls.map(url => `${BASE_URL}${url}`);
+      setImages(prev => [...prev, ...fullUrls]);
+      toast.success(`${files.length} images uploaded successfully`);
+    } catch (error) {
+      console.error('Upload Error:', error);
+      toast.error('Failed to upload images');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const toggleAmenity = (label) => {
