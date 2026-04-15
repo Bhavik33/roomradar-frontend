@@ -49,7 +49,7 @@ const Housing = () => {
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
       const { data } = await axios.get(`${BASE_URL}/api/users/favorites`, config);
-      setFavorites(data.properties.map(p => p._id));
+      setFavorites(data.favoriteProperties.map(p => p._id));
     } catch (error) {
       console.error('Error fetching favorites:', error);
     }
