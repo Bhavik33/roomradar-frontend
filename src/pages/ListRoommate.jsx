@@ -18,14 +18,16 @@ const ListRoommate = () => {
     bio: '',
     gender: 'Any',
     budget: '',
-    foodHabits: 'Both',
-    lifestyle: 'Early Bird',
+    foodHabits: 'Any',
     city: '',
     university: '',
     occupation: 'Student',
     moveInDate: '',
-    smoking: false,
-    drinking: false,
+    smoking: 'No',
+    drinking: 'No',
+    cleanliness: 5,
+    sleepSchedule: 'Flexible',
+    guestPolicy: 'Occasional',
   });
 
   const handleInputChange = (e) => {
@@ -51,6 +53,9 @@ const ListRoommate = () => {
         habits: {
           smoking: formData.smoking,
           drinking: formData.drinking,
+          cleanliness: Number(formData.cleanliness),
+          sleepSchedule: formData.sleepSchedule,
+          guestPolicy: formData.guestPolicy,
         }
       };
 
@@ -157,35 +162,39 @@ const ListRoommate = () => {
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Food</label>
               <select name="foodHabits" value={formData.foodHabits} onChange={handleInputChange} className="w-full px-4 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
-                <option>Veg</option><option>Non-Veg</option><option>Both</option>
+                <option>Veg</option><option>Non-Veg</option><option>Any</option>
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Gender</label>
-              <select name="gender" value={formData.gender} onChange={handleInputChange} className="w-full px-4 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
-                <option>Male</option><option>Female</option><option>Any</option>
+              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Smoking</label>
+              <select name="smoking" value={formData.smoking} onChange={handleInputChange} className="w-full px-4 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
+                <option>No</option><option>Yes</option><option>Social</option>
               </select>
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Habit</label>
-              <select name="lifestyle" value={formData.lifestyle} onChange={handleInputChange} className="w-full px-4 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
-                <option>Early Bird</option><option>Late Night</option>
+              <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Drinking</label>
+              <select name="drinking" value={formData.drinking} onChange={handleInputChange} className="w-full px-4 py-4 rounded-2xl bg-slate-50 border border-slate-100 outline-none">
+                <option>No</option><option>Yes</option><option>Social</option>
               </select>
             </div>
           </div>
 
-          <div className="flex gap-8 items-center bg-slate-50 p-6 rounded-3xl border border-slate-100">
-             <div className="flex items-center gap-3">
-                <input type="checkbox" name="smoking" id="smoking" checked={formData.smoking} onChange={handleInputChange} className="w-5 h-5 accent-secondary" />
-                <label htmlFor="smoking" className="flex items-center gap-2 text-slate-700 font-bold">
-                  <Cigarette className="w-4 h-4" /> Smoking
-                </label>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-50 p-8 rounded-3xl border border-slate-100">
+             <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Cleanliness (1-10)</label>
+                <input type="number" name="cleanliness" min="1" max="10" value={formData.cleanliness} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200" />
              </div>
-             <div className="flex items-center gap-3">
-                <input type="checkbox" name="drinking" id="drinking" checked={formData.drinking} onChange={handleInputChange} className="w-5 h-5 accent-secondary" />
-                <label htmlFor="drinking" className="flex items-center gap-2 text-slate-700 font-bold">
-                  <Wine className="w-4 h-4" /> Drinking
-                </label>
+             <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Sleep Schedule</label>
+                <select name="sleepSchedule" value={formData.sleepSchedule} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200">
+                   <option>Early Bird</option><option>Night Owl</option><option>Flexible</option>
+                </select>
+             </div>
+             <div className="space-y-2">
+                <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Guest Policy</label>
+                <select name="guestPolicy" value={formData.guestPolicy} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200">
+                   <option>None</option><option>Occasional</option><option>Frequent</option>
+                </select>
              </div>
           </div>
 

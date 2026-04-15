@@ -10,6 +10,7 @@ import PropertyDetail from './pages/PropertyDetail';
 import Auth from './pages/Auth';
 import ChatPage from './pages/ChatPage';
 import Saved from './pages/Saved';
+import Preferences from './pages/Preferences';
 import Footer from './components/Footer';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<Auth />} />
             <Route path="/chats" element={<ChatPage />} />
             <Route path="/saved" element={<Saved />} />
+            <Route path="/preferences" element={<Preferences />} />
           </Routes>
         </main>
         <Footer />

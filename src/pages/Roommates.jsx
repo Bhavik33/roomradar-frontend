@@ -27,7 +27,11 @@ const Roommates = () => {
 
   const fetchRoommates = async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/api/roommates`);
+      const config = {};
+      if (user && user.token) {
+        config.headers = { Authorization: `Bearer ${user.token}` };
+      }
+      const { data } = await axios.get(`${BASE_URL}/api/roommates`, config);
       setRoommates(data);
       setFilteredRoommates(data);
     } catch (error) {
@@ -109,6 +113,27 @@ const Roommates = () => {
         </Link>
       </div>
 
+      {user && (!user.preferences || Object.keys(user.preferences).length < 5) && (
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="mb-12 p-8 bg-gradient-to-r from-secondary/10 to-primary/10 rounded-[2.5rem] border border-secondary/20 flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-secondary shadow-sm">
+              <Smile className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className="text-xl font-black text-slate-800 tracking-tight">Want to see your Match Score?</h3>
+              <p className="text-slate-500 font-medium">Set your lifestyle preferences to find the perfect roommate for you.</p>
+            </div>
+          </div>
+          <Link to="/preferences" className="btn-gradient !from-secondary !to-secondary-dark !px-8 text-sm">
+            Set Preferences
+          </Link>
+        </motion.div>
+      )}
+
       {/* Modern Profile Search */}
       <div className="flex flex-col md:flex-row gap-6 mb-16">
         <div className="flex-1 relative group">
@@ -151,7 +176,11 @@ const Roommates = () => {
                     <div className="w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-secondary/20 to-secondary-light/10 flex items-center justify-center text-secondary font-black text-4xl border-4 border-white shadow-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
                       {person.user?.name?.charAt(0) || 'U'}
                     </div>
-                    <div className="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-white" />
+                    {person.matchScore !== null && (
+                      <div className="absolute -bottom-2 -right-2 bg-slate-900 text-white px-3 py-1 rounded-full text-[10px] font-black border-4 border-white shadow-lg">
+                        {person.matchScore}% MATCH
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="px-3 py-1 bg-secondary/10 rounded-full text-secondary text-[10px] font-black uppercase tracking-widest mb-2">

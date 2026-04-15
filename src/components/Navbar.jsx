@@ -23,6 +23,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Housing', path: '/housing' },
     { name: 'Roommates', path: '/roommates' },
+    { name: 'Lifestyle', path: '/preferences' },
   ];
 
   return (
